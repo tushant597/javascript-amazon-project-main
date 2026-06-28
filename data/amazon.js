@@ -30,6 +30,7 @@
 
 // Above code is commented out because the products are now being imported from products.js
 import {cart} from "../data/cart.js";
+import {products} from "../data/products.js";
 
 const productsGrid = document.querySelector(".js-products-grid");
 
