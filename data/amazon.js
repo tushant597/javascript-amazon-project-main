@@ -29,8 +29,8 @@
 
 
 // Above code is commented out because the products are now being imported from products.js
-import {cart} from "../data/cart.js";
-import {products} from "../data/products.js";
+import { cart, addToCart } from "../data/cart.js";
+import { products } from "../data/products.js";
 
 const productsGrid = document.querySelector(".js-products-grid");
 
@@ -93,35 +93,20 @@ products.forEach(product => {
 
 productsGrid.innerHTML = productInnerHTML;
 
+function updateCartQuantity() {
+  let totalQuantity = 0;
+  cart.forEach((cartItem) => {
+    totalQuantity += cartItem.quantity;
+  })
+  const cartQuantityElement = document.querySelector(".js-cart-quantity");
+  cartQuantityElement.innerHTML = totalQuantity;
+}
 
 
 document.querySelectorAll(".js-add-to-cart-button").forEach((button) => {
     button.addEventListener("click", () => {
         const productId = button.dataset.productId;
-
-        let matchingItem;
-        cart.forEach((item) => {
-            if (productId === item.productId) {
-                matchingItem = item;
-            }
-        })
-
-        
-        if (matchingItem) {
-            matchingItem.quantity += 1;
-        }else{
-
-            cart.push({
-                productId: productId,
-                quantity: 1
-            });
-        }
-
-        let totalQuantity = 0;
-        cart.forEach((item) => {
-          totalQuantity += item.quantity;
-        })
-        const cartQuantityElement = document.querySelector(".js-cart-quantity");
-        cartQuantityElement.innerHTML = totalQuantity;
+        addToCart(productId)
+        updateCartQuantity()
     })
 })
