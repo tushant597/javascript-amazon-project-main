@@ -29,6 +29,7 @@
 
 
 // Above code is commented out because the products are now being imported from products.js
+import {cart} from "../data/cart.js";
 
 const productsGrid = document.querySelector(".js-products-grid");
 
@@ -119,7 +120,7 @@ document.querySelectorAll(".js-add-to-cart-button").forEach((button) => {
         cart.forEach((item) => {
           totalQuantity += item.quantity;
         })
-        cartQuantityElement = document.querySelector(".js-cart-quantity");
+        const cartQuantityElement = document.querySelector(".js-cart-quantity");
         cartQuantityElement.innerHTML = totalQuantity;
     })
 })
