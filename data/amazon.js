@@ -39,7 +39,7 @@ let productInnerHTML = "";
 
 products.forEach(product => {
 
-    const HTML = `<div class="product-container" >
+  const HTML = `<div class="product-container" >
           <div class="product-image-container">
             <img class="product-image"
               src=${product.image}>
@@ -87,11 +87,24 @@ products.forEach(product => {
             Add to Cart
           </button>
         </div>`
-    productInnerHTML += HTML
+  productInnerHTML += HTML
 
 })
 
 productsGrid.innerHTML = productInnerHTML;
+
+if(cart.quantity !== 0) {
+  updateCartQuantity()
+};
+
+document.querySelectorAll(".js-add-to-cart-button").forEach((button) => {
+  button.addEventListener("click", () => {
+    const productId = button.dataset.productId;
+    addToCart(productId)
+    updateCartQuantity()
+  })
+})
+
 
 function updateCartQuantity() {
   let totalQuantity = 0;
@@ -101,12 +114,3 @@ function updateCartQuantity() {
   const cartQuantityElement = document.querySelector(".js-cart-quantity");
   cartQuantityElement.innerHTML = totalQuantity;
 }
-
-
-document.querySelectorAll(".js-add-to-cart-button").forEach((button) => {
-    button.addEventListener("click", () => {
-        const productId = button.dataset.productId;
-        addToCart(productId)
-        updateCartQuantity()
-    })
-})
