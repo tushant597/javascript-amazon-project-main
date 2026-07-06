@@ -31,6 +31,7 @@
 // Above code is commented out because the products are now being imported from products.js
 import { cart, addToCart } from "../data/cart.js";
 import { products } from "../data/products.js";
+import { priceCent} from "../data/priceCentFunction.js";
 
 const productsGrid = document.querySelector(".js-products-grid");
 
@@ -58,7 +59,7 @@ products.forEach(product => {
           </div>
 
           <div class="product-price">
-            $${(product.priceCents / 100).toFixed(2)}
+            $${priceCent(product.priceCents)}
           </div>
 
           <div class="product-quantity-container">
