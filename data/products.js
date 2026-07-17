@@ -1,3 +1,5 @@
+import { priceCent} from "../data/priceCentFunction.js";
+
 
 export function product (cartItem) {
   let matchingProduct;
@@ -10,6 +12,47 @@ export function product (cartItem) {
 }
 
 
+class Product {
+  id;
+  image;
+  name;
+  rating;
+  priceCents;
+
+
+  constructor(productDetails) {
+    this.id = productDetails.id;
+    this.image = productDetails.image;
+    this.name = productDetails.name;
+    this.rating = productDetails.rating;
+    this.priceCents = productDetails.priceCents;
+  }
+
+  getRatingUrl() {
+    return `images/ratings/rating-${this.rating.stars * 10}.png`;
+  };
+
+  getPrice() {
+    return `$${priceCent(this.priceCents)}`;
+  };
+
+  sizeChart(){
+   return ``;
+  };
+};
+
+class Clothing extends Product {
+  sizeChartLink;
+  
+  constructor(productDetails){
+    super(productDetails);
+    this.sizeChartLink = productDetails.sizeChartLink;
+  }
+
+  sizeChart(){
+   return `<a href="images/clothing-size-chart.png" target="_Blank">Size Chart</a>`;
+  };
+};
 
 
 export const products = [
@@ -671,4 +714,9 @@ export const products = [
       "mens"
     ]
   }
-];
+].map(productDetails => {
+  if (productDetails.type === "clothing"){
+    return new Clothing(productDetails);
+  }
+  return new Product(productDetails);
+});

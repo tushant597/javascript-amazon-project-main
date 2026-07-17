@@ -48,7 +48,7 @@ export function renderOrderDate() {
                       ${product.name}
                     </div>
                     <div class="product-price">
-                      $${priceCent(product.priceCents)}
+                      ${product.getPrice(8)}
                     </div>
                     <div class="product-quantity">
                       <span>
