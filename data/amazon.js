@@ -30,90 +30,95 @@
 
 // Above code is commented out because the products are now being imported from products.js
 import { cart, addToCart } from "../data/cart.js";
-import { products } from "../data/products.js";
+import { products, loadProducts } from "../data/products.js";
 import { priceCent} from "../data/priceCentFunction.js";
+// import "../data/products.js";
+loadProducts(renderProductGrids);
 
-const productsGrid = document.querySelector(".js-products-grid");
+function renderProductGrids(){
 
-let productInnerHTML = "";
-
-
-products.forEach(product => {
-
-  const HTML = `<div class="product-container" >
-          <div class="product-image-container">
-            <img class="product-image"
-              src=${product.image}>
-          </div>
-
-          <div class="product-name limit-text-to-2-lines">
-            ${product.name}
-          </div>
-
-          <div class="product-rating-container">
-            <img class="product-rating-stars"
-              src=${product.getRatingUrl()}>
-            <div class="product-rating-count link-primary">
-              ${product.rating.count}
+  const productsGrid = document.querySelector(".js-products-grid");
+  
+  let productInnerHTML = "";
+  
+  
+  products.forEach(product => {
+  
+    const HTML = `<div class="product-container" >
+            <div class="product-image-container">
+              <img class="product-image"
+                src=${product.image}>
             </div>
-          </div>
-
-          <div class="product-price">
-            ${product.getPrice()}
-          </div>
-
-          <div class="product-quantity-container">
-            <select>
-              <option selected value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-            </select>
-          </div>
-
-          ${product.sizeChart()}
-
-          <div class="product-spacer"></div>
-
-          <div class="added-to-cart">
-            <img src="images/icons/checkmark.png">
-            Added
-          </div>
-
-          <button class="add-to-cart-button button-primary js-add-to-cart-button" data-product-id="${product.id}">
-            Add to Cart
-          </button>
-        </div>`
-  productInnerHTML += HTML
-
-})
-
-productsGrid.innerHTML = productInnerHTML;
-
-if(cart.quantity !== 0) {
-  updateCartQuantity()
-};
-
-document.querySelectorAll(".js-add-to-cart-button").forEach((button) => {
-  button.addEventListener("click", () => {
-    const productId = button.dataset.productId;
-    addToCart(productId)
+  
+            <div class="product-name limit-text-to-2-lines">
+              ${product.name}
+            </div>
+  
+            <div class="product-rating-container">
+              <img class="product-rating-stars"
+                src=${product.getRatingUrl()}>
+              <div class="product-rating-count link-primary">
+                ${product.rating.count}
+              </div>
+            </div>
+  
+            <div class="product-price">
+              ${product.getPrice()}
+            </div>
+  
+            <div class="product-quantity-container">
+              <select>
+                <option selected value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </select>
+            </div>
+  
+            ${product.sizeChart()}
+  
+            <div class="product-spacer"></div>
+  
+            <div class="added-to-cart">
+              <img src="images/icons/checkmark.png">
+              Added
+            </div>
+  
+            <button class="add-to-cart-button button-primary js-add-to-cart-button" data-product-id="${product.id}">
+              Add to Cart
+            </button>
+          </div>`
+    productInnerHTML += HTML
+  
+  })
+  
+  productsGrid.innerHTML = productInnerHTML;
+  
+  if(cart.quantity !== 0) {
     updateCartQuantity()
+  };
+  
+  document.querySelectorAll(".js-add-to-cart-button").forEach((button) => {
+    button.addEventListener("click", () => {
+      const productId = button.dataset.productId;
+      addToCart(productId)
+      updateCartQuantity()
+    })
   })
-})
-
-
-function updateCartQuantity() {
-  let totalQuantity = 0;
-  cart.forEach((cartItem) => {
-    totalQuantity += cartItem.quantity;
-  })
-  const cartQuantityElement = document.querySelector(".js-cart-quantity");
-  cartQuantityElement.innerHTML = totalQuantity;
-}
+  
+  
+  function updateCartQuantity() {
+    let totalQuantity = 0;
+    cart.forEach((cartItem) => {
+      totalQuantity += cartItem.quantity;
+    })
+    const cartQuantityElement = document.querySelector(".js-cart-quantity");
+    cartQuantityElement.innerHTML = totalQuantity;
+  }
+};
