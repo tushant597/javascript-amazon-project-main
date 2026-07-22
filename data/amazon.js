@@ -33,7 +33,14 @@ import { cart, addToCart } from "../data/cart.js";
 import { products, loadProducts } from "../data/products.js";
 import { priceCent} from "../data/priceCentFunction.js";
 // import "../data/products.js";
-loadProducts(renderProductGrids);
+new Promise((resolve)=>{
+  loadProducts(()=>{
+    resolve()
+  });
+}).then(()=>{
+  renderProductGrids();
+});
+
 
 function renderProductGrids(){
 
